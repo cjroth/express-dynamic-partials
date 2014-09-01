@@ -1,0 +1,38 @@
+{
+  "name": "express-dynamic-partials",
+  "description": "render partials server side",
+  "version": "0.1.0",
+  "contributors": [
+    "Chris Roth <chris@cjroth.com>"
+  ],
+  "license": "MIT",
+  "repository": "cjroth/express-dynamic-partials",
+  "keywords": [
+    "partials",
+    "templates",
+    "jade",
+    "ejs",
+    "express",
+    "middleware",
+    "dynamic"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "express": "^4.8.7",
+    "jade": "^1.5.0",
+    "should": "^4.0.4",
+    "supertest": "^0.13.0"
+  },
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "files": [
+    "LICENSE",
+    "index.js"
+  ],
+  "scripts": {
+    "test": "mocha --reporter spec --bail --check-leaks --require should test/",
+    "test-cov": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot --check-leaks --require should test/",
+    "test-travis": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec --check-leaks --require should test/"
+  }
+}
