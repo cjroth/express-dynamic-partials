@@ -18,11 +18,7 @@ module.exports = function(views, engine) {
       return next('route');
     }
 
-    try {
-      if (fs.lstatSync(template).isDirectory()) {
-        throw new Error();
-      }
-    } catch(e) {
+    if (!fs.existsSync(template) || !fs.lstatSync(template).isFile()) {
       return next('route');
     }
 
