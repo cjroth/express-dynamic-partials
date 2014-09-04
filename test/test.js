@@ -13,7 +13,7 @@ describe('partials()', function() {
     app.use('/render', partials(app.locals.basedir, 'jade'));
 
     request(app)
-      .get('/render?template=test&text=hello')
+      .get('/render/test?text=hello')
       .end(function(err, res) {
         res.text.should.equal('<h1>hello</h1>');
         done();
@@ -28,7 +28,7 @@ describe('partials()', function() {
     app.use('/render', partials(app.locals.basedir, 'jade'));
 
     request(app)
-      .get('/render?template=../inaccessible&text=hello')
+      .get('/render/../inaccessible?text=hello')
       .end(function(err, res) {
         res.status.should.equal(404);
         done();
@@ -41,12 +41,12 @@ describe('partials()', function() {
     var app = express();
     app.locals.basedir = path.join(__dirname, 'partials');
     app.use('/render', partials(app.locals.basedir, 'jade'));
-    app.get('/render', function(req, res, next) {
+    app.get('/render/not-found', function(req, res, next) {
       res.send('this is the next route');
     });
 
     request(app)
-      .get('/render?template=not-found')
+      .get('/render/not-found')
       .end(function(err, res) {
         res.text.should.equal('this is the next route');
         done();
@@ -61,9 +61,24 @@ describe('partials()', function() {
     app.use('/render', partials(app.locals.basedir, 'jade'));
 
     request(app)
-      .get('/render?template=subdir')
+      .get('/render/subdir')
       .end(function(err, res) {
         res.status.should.equal(404);
+        done();
+      });
+
+  });
+
+  it('should render partials in subdirectories', function(done) {
+
+    var app = express();
+    app.locals.basedir = path.join(__dirname, 'partials');
+    app.use('/render', partials(app.locals.basedir, 'jade'));
+
+    request(app)
+      .get('/render/subdir/subdir-test?text=hello')
+      .end(function(err, res) {
+        res.text.should.equal('<h1>hello</h1>');
         done();
       });
 

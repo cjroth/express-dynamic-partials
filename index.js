@@ -5,15 +5,14 @@ module.exports = function(views, engine) {
 
   return function(req, res, next) {
 
-    if (!req.query.template) {
-      return next('route');
-    }
+    var template = req.url.split('?')[0];
 
     engine = engine || req.app.get('view engine');
     views = path.resolve(views || req.app.locals.basedir);
 
     // important for security: only render templates that are in the allowed directory
-    var template = path.resolve(path.join(views, req.query.template + '.' + engine));
+    template = path.resolve(path.join(views, template + '.' + engine));
+
     if (template.indexOf(views) !== 0) {
       return next('route');
     }

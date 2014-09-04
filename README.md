@@ -23,7 +23,7 @@ Create a partial:
 
 ```
 /partials
-  /hello.jade
+  /my-partial.jade
 ```
 
 ```
@@ -33,7 +33,7 @@ h1= text
 Dynamically render the partial:
 
 ```bash
-curl localhost:3000/render?template=hello&text=hello
+curl localhost:3000/render/my-partial?text=hello
 ```
 
 Returns:
