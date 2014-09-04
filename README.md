@@ -14,8 +14,9 @@ Add it as middleware:
 
 ```js
 var app = express();
+var partials = require('express-dynamic-partials');
 app.locals.basedir = __dirname + '/partials');
-app.use(require('express-dynamic-partials')('/render', app.locals.basedir, 'jade'));
+app.use('/render', partials(app.locals.basedir, 'jade'));
 ```
 
 Create a partial:
@@ -49,9 +50,9 @@ $ npm install express-dynamic-partials
 
 ```js
 var app = express();
+var partials = require('express-dynamic-partials');
 app.locals.basedir = __dirname + '/partials');
-// ...
-app.use(require('express-dynamic-partials')('/render', app.locals.basedir, 'jade'));
+app.use('/render', partials(app.locals.basedir, 'jade'));
 ```
 
 ## [MIT Licensed](LICENSE)

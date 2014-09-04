@@ -1,13 +1,9 @@
 var fs = require('fs');
 var path = require('path');
 
-module.exports = function(pattern, views, engine) {
+module.exports = function(views, engine) {
 
   return function(req, res, next) {
-
-    if (!req.url.match(pattern)) {
-       return next();
-    }
 
     if (!req.query.template) {
       return res.status(404).end();

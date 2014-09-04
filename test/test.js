@@ -10,7 +10,7 @@ describe('partials()', function() {
 
     var app = express();
     app.locals.basedir = path.join(__dirname, 'partials');
-    app.use(partials('/render', app.locals.basedir, 'jade'));
+    app.use('/render', partials(app.locals.basedir, 'jade'));
 
     request(app)
       .get('/render?template=test&text=hello')
@@ -25,7 +25,7 @@ describe('partials()', function() {
 
     var app = express();
     app.locals.basedir = path.join(__dirname, 'partials');
-    app.use(partials('/render', app.locals.basedir, 'jade'));
+    app.use('/render', partials(app.locals.basedir, 'jade'));
 
     request(app)
       .get('/render?template=../inaccessible&text=hello')
