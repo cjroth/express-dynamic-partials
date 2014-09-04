@@ -7,7 +7,7 @@
 [![Coverage Status](https://img.shields.io/coveralls/cjroth/express-dynamic-partials.svg?style=flat)](https://coveralls.io/r/cjroth/express-dynamic-partials)
 [![Gittip](http://img.shields.io/gittip/cjroth.svg)](https://www.gittip.com/cjroth/)
 
-#### Dynamically render partials server-side.
+#### Dynamically render partials server-side. Works with any view engine, eg ejs, jade, etc.
 
 
 Add it as middleware:
@@ -17,6 +17,19 @@ var app = express();
 var partials = require('express-dynamic-partials');
 app.locals.basedir = __dirname + '/partials');
 app.use('/render', partials(app.locals.basedir, 'jade'));
+```
+
+Supports any view engine:
+
+```js
+app.use('/render', partials(app.locals.basedir, 'ejs'));
+```
+
+If no view engine is specified, it will use the app's view engine:
+
+```js
+app.set('view engine', 'ejs');
+app.use('/render', partials(app.locals.basedir)); // will use ejs
 ```
 
 Create a partial:
