@@ -36,4 +36,21 @@ describe('partials()', function() {
 
   });
 
+  it('should continue to the next route if template is not found', function(done) {
+
+    var app = express();
+    app.locals.basedir = path.join(__dirname, 'partials');
+    app.use('/render', partials(app.locals.basedir, 'jade'));
+    app.get('/render', function(req, res, next) {
+      res.send('this is the next route');
+    });
+    request(app)
+      .get('/render?template=not-found')
+      .end(function(err, res) {
+        res.text.should.equal('this is the next route');
+        done();
+      });
+
+  });
+
 });

@@ -6,7 +6,7 @@ module.exports = function(views, engine) {
   return function(req, res, next) {
 
     if (!req.query.template) {
-      return res.status(404).end();
+      return next('route');
     }
 
     engine = engine || req.app.get('view engine');
@@ -15,7 +15,7 @@ module.exports = function(views, engine) {
     // important for security: only render templates that are in the allowed directory
     var template = path.resolve(path.join(views, req.query.template + '.' + engine));
     if (template.indexOf(views) !== 0) {
-      return res.status(404).end();
+      return next('route');
     }
 
     try {
@@ -23,7 +23,7 @@ module.exports = function(views, engine) {
         throw new Error();
       }
     } catch(e) {
-      return res.status(404).end();
+      return next('route');
     }
 
     res.render(template, req.query);
